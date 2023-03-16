@@ -28,6 +28,22 @@
     }
     getElements() {}
 
+    determineRatingBgc(rating) {
+      //for (const book of dataSource.books) {
+      if (rating < 6) {
+        ('linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)');
+      }
+      if (rating > 6 && rating <= 8) {
+        ('linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)');
+      }
+      if (rating > 8 && rating <= 9) {
+        ('linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)');
+      } else {
+        ('linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)');
+      }
+      // }
+    }
+
     render() {
       const thisBooksList = this;
       for (const book of thisBooksList.data) {
@@ -44,11 +60,11 @@
 
     initActions() {
       const thisBooksList = this;
-      const bookList = document.querySelector('.books-list');
-      const form = document.querySelector('.filters');
+      thisBooksList.container = document.querySelector('.books-list');
+      thisBooksList.form = document.querySelector('.filters');
       const favoriteBooks = [];
 
-      bookList.addEventListener('dblclick', function (event) {
+      thisBooksList.container.addEventListener('dblclick', function (event) {
         event.preventDefault();
         const clickedElem = event.target;
         if (clickedElem.offsetParent.classList.contains('book__image')) {
@@ -67,7 +83,7 @@
         }
       });
 
-      form.addEventListener('click', function (event) {
+      thisBooksList.form.addEventListener('click', function (event) {
         const clickedElement = event.target;
         if (
           clickedElement.tagName == 'INPUT' &&
@@ -107,21 +123,6 @@
           bookImage.classList.remove('hidden');
         }
       }
-    }
-    determineRatingBgc(rating) {
-      //for (const book of dataSource.books) {
-      if (rating < 6) {
-        ('linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)');
-      }
-      if (rating > 6 && rating <= 8) {
-        ('linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)');
-      }
-      if (rating > 8 && rating <= 9) {
-        ('linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)');
-      } else {
-        ('linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)');
-      }
-      // }
     }
   }
   const app = new BooksList(); // eslint-disable-line no-unused-vars
