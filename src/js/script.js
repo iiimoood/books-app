@@ -31,15 +31,15 @@
     determineRatingBgc(rating) {
       //for (const book of dataSource.books) {
       if (rating < 6) {
-        ('linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)');
+        return 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
       }
       if (rating > 6 && rating <= 8) {
-        ('linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)');
+        return 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
       }
       if (rating > 8 && rating <= 9) {
-        ('linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)');
+        return 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
       } else {
-        ('linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)');
+        return 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
       }
       // }
     }
