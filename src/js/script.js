@@ -10,7 +10,6 @@
   const templateBook = Handlebars.compile(
     document.querySelector(select.templateBook).innerHTML
   );
-  const filters = [];
 
   class BooksList {
     constructor() {
@@ -25,8 +24,14 @@
     initData() {
       const thisBooksList = this;
       thisBooksList.data = dataSource.books;
+      thisBooksList.filters = [];
+      thisBooksList.favoriteBooks = [];
     }
-    getElements() {}
+    getElements() {
+      const thisBooksList = this;
+      thisBooksList.container = document.querySelector('.books-list');
+      thisBooksList.form = document.querySelector('.filters');
+    }
 
     determineRatingBgc(rating) {
       //for (const book of dataSource.books) {
@@ -60,9 +65,6 @@
 
     initActions() {
       const thisBooksList = this;
-      thisBooksList.container = document.querySelector('.books-list');
-      thisBooksList.form = document.querySelector('.filters');
-      const favoriteBooks = [];
 
       thisBooksList.container.addEventListener('dblclick', function (event) {
         event.preventDefault();
@@ -71,14 +73,14 @@
           const id = clickedElem.offsetParent.getAttribute('data-id');
           if (
             !clickedElem.offsetParent.classList.contains('favorite') &&
-            !favoriteBooks.id
+            !thisBooksList.favoriteBooks.id
           ) {
             clickedElem.offsetParent.classList.add('favorite');
-            favoriteBooks.push(id);
+            thisBooksList.favoriteBooks.push(id);
           } else {
             clickedElem.offsetParent.classList.remove('favorite');
-            const index = favoriteBooks.indexOf(id);
-            favoriteBooks.splice(index, 1);
+            const index = thisBooksList.favoriteBooks.indexOf(id);
+            thisBooksList.favoriteBooks.splice(index, 1);
           }
         }
       });
@@ -92,10 +94,10 @@
         ) {
           console.log(clickedElement.value);
           if (clickedElement.checked) {
-            filters.push(clickedElement.value);
+            thisBooksList.filters.push(clickedElement.value);
           } else {
-            const index = filters.indexOf(clickedElement.value);
-            filters.splice(index, 1);
+            const index = thisBooksList.filters.indexOf(clickedElement.value);
+            thisBooksList.filters.splice(index, 1);
           }
           thisBooksList.filterBooks();
         }
@@ -107,7 +109,7 @@
 
       for (const book of thisBooksList.data) {
         let shouldBeHidden = false;
-        for (const filter of filters) {
+        for (const filter of thisBooksList.filters) {
           if (!book.details[filter]) {
             shouldBeHidden = true;
             break;
