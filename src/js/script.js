@@ -47,7 +47,7 @@
     render() {
       const thisBooksList = this;
       for (const book of thisBooksList.data) {
-        const ratingBgc = determineRatingBgc(book.rating);
+        const ratingBgc = thisBooksList.determineRatingBgc(book.rating);
         const ratingWidth = (book.rating / 10) * 100;
         book.ratingBgc = ratingBgc;
         book.ratingWidth = ratingWidth;
@@ -97,7 +97,7 @@
             const index = filters.indexOf(clickedElement.value);
             filters.splice(index, 1);
           }
-          filterBooks();
+          thisBooksList.filterBooks();
         }
       });
     }
